@@ -4,7 +4,7 @@ RUN apt update && \
 		apt upgrade -y && \
 		apt install -y apt-utils
 RUN apt install -y nodejs npm
-RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install --no-cache-dir --upgrade pip
 RUN git clone https://github.com/OWASP/SecureTea-Project securetea
 RUN wget https://github.com/coder/code-server/releases/download/2.1472-vsc1.38.1/code-server2.1472-vsc1.38.1-linux-x86_64.tar.gz &&\
 	tar --gzip -xf ./code-server2.1472-vsc1.38.1-linux-x86_64.tar.gz && \
@@ -16,8 +16,8 @@ RUN apt -y install clamav
 RUN freshclam
 RUN npm i -g @angular/cli typescript tslib tslint serve webpack parcel ts-node
 WORKDIR /root/securetea
-RUN pip install virtualenv && \
-	virtualenv .env #pip install -r requirements.txt
+RUN pip install --no-cache-dir virtualenv && \
+	virtualenv .env #pip install --no-cache-dir -r requirements.txt
 EXPOSE 7171
 RUN ~/code-server ./ --port 7171 --host 0.0.0.0
 CMD zsh -l
